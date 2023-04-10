@@ -3,6 +3,7 @@
   padding: 0;
   box-sizing: border-box;
   text-decoration: none;
+  list-style: none;
   transition: all 0.3 ease-out;
 }
 
@@ -20,11 +21,34 @@
   --yellow-500: #ffd231;
 }
 
+.wrapper {
+  max-width: 46rem;
+  background-color: #26c277;
+  margin: 0 auto;
+  /* padding: 0 1rem 5rem 1rem; */
+
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+
+    /* align-items: center;
+    justify-content: center; */
+}
+
+@media screen and (max-width: 768px) {
+  html {
+    font-size: 87.5%;
+  }
+
+  /* .wrapper {
+     grid-template-columns: 1fr;
+  } */
+}
+
 body {
   background-color: var(--gray-500);
   color: var(--gray-100);
   /* -webkit-font-smoothing: antialiased; */
-  text-align: center;
 }
 
 body,
