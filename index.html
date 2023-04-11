@@ -22,6 +22,12 @@
       href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/bold/style.css"
     />
 
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/duotone/style.css"
+    />
+
     <!-- Google Fonts -->
 
     <link
@@ -36,45 +42,73 @@
       </header>
 
       <main>
-        <form>
-          <input type="text" placeholder="Adicione uma tarefa" id="#" />
-          <button type="submit">Criar</button>
+        <form class="new_task_form">
+          <input
+            id="task_input"
+            type="text"
+            placeholder="Adicione uma tarefa"
+          />
+          <button type="submit" onclick="addTask(event)">
+            Criar <i class="ph-bold ph-plus-circle"></i>
+          </button>
         </form>
 
-        <section>
-          <p>
+        <section class="tasks_counter">
+          <div class="all_tasks">
             <strong>Tarefas criadas</strong>
-            <span>5</span>
-          </p>
-          <p>
+            <span id="todo_count">0</span>
+          </div>
+          <div class="done_tasks">
             <strong>Tarefas concluídas</strong>
-            <span>3</span>
-          </p>
+            <span id="done_count">0</span>
+          </div>
         </section>
 
-        <div class="empty_tasks">
+        <section class="empty_tasks hidden">
           <img
             src="./assets/empty-tasks.svg"
             alt="Checkbox preenchidos e não preenchidos"
           />
-          <p>Você ainda não tem tarefas cadastradas</p>
-          <p>Crie tarefas e organize seus itens a fazer</p>
-        </div>
-
-        <div class="tasks_list">
-          <div class="task">
-            <span> O </span>
-            <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-              Doloribus ducimus dolores est dignissimos deleniti qui, soluta
-              tempore quam quo corrupti officiis cumque mollitia voluptates.
-              Magnam.
-            </p>
-            <i> ICONE </i>
+          <div>
+            <p>Você ainda não tem tarefas cadastradas</p>
+            <p>Crie tarefas e organize seus itens a fazer</p>
           </div>
-        </div>
+        </section>
 
+        <ul id="tasks_list" class="tasks_list">
+          <!-- <li class="task todo">
+            <div class="left_content">
+              <i
+                class="ph-duotone ph-circle-dashed check_btn"
+                onclick="completeTask()"
+              ></i>
+              <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+            </div>
+            <i
+              class="ph-duotone ph-trash delete_btn"
+              onclick="deleteTask()"
+            ></i>
+          </li>
+
+          <li class="task done">
+            <div class="left_content">
+              <i
+                class="ph-duotone ph-check-circle check_btn"
+                onclick="incompleteTask()"
+              ></i>
+              <p class="risked">
+                Doloribus ducimus dolores est dignissimos deleniti qui. Magnam.
+              </p>
+            </div>
+            <i
+              class="ph-duotone ph-trash delete_btn"
+              onclick="deleteTask()"
+            ></i>
+          </li> -->
+        </ul>
       </main>
     </div>
+
+    <script src="./js/tasks.js"></script>
   </body>
 </html>

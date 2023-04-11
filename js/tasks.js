@@ -1,0 +1,191 @@
+function uid() {
+  return Date.now().toString(16) + Math.random().toString(16).substring(2);
+}
+
+let taskData = [
+  {
+    id: uid(),
+    name: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
+    toDo: true,
+  },
+  {
+    id: uid(),
+    name: "Doloribus ducimus dolores est dignissimos deleniti qui. Magnam.",
+    toDo: true,
+  },
+];
+
+const addTaskInput = document.querySelector("#task_input");
+const addTaskButton = document.getElementsByTagName("button")[0];
+const taskList = document.querySelector("#tasks_list");
+const todoCounterText = document.querySelector("#todo_count");
+const doneCounterText = document.querySelector("#done_count");
+const emptyTasks = document.querySelector(".empty_tasks");
+
+// counter
+function counter() {
+  let toDoCounter = 0;
+  let doneCounter = 0;
+
+  toDoCounter = taskData.length;
+  todoCounterText.innerText = `${toDoCounter}`;
+
+  doneCounter = taskData.filter((task) => task.toDo == false);
+
+  doneCounterText.innerText = `${doneCounter.length}`;
+}
+
+// task length verify
+function isTasksListEmpty() {
+  if (taskData.length == 0) {
+    emptyTasks.classList.remove("hidden");
+  } else {
+    emptyTasks.classList.add("hidden");
+  }
+}
+
+counter();
+isTasksListEmpty();
+
+// create new task element
+function createNewTaskEl(taskName, taskId) {
+  // create task li
+  let task = document.createElement("li");
+  task.classList.add("task");
+  task.classList.add("todo");
+  task.setAttribute("id", taskId);
+
+  // create left content div
+  let leftContent = document.createElement("div");
+  leftContent.classList.add("left_content");
+
+  // toDo icon
+  let todoIcon = document.createElement("i");
+  todoIcon.classList.add("ph-duotone");
+  todoIcon.classList.add("ph-circle-dashed");
+  todoIcon.classList.add("check_btn");
+  todoIcon.addEventListener("click", completeTask);
+
+  // done icon
+  let doneIcon = document.createElement("i");
+  doneIcon.classList.add("ph-duotone");
+  doneIcon.classList.add("ph-check-circle");
+  doneIcon.classList.add("check_btn");
+  doneIcon.classList.add("hidden");
+  doneIcon.addEventListener("click", incompleteTask);
+
+  // task name / p
+  let name = document.createElement("p");
+  name.innerHTML = taskName;
+
+  // delete icon
+  let deleteIcon = document.createElement("i");
+  deleteIcon.classList.add("ph-duotone");
+  deleteIcon.classList.add("ph-trash");
+  deleteIcon.classList.add("delete_btn");
+  deleteIcon.addEventListener("click", deleteTask);
+
+  leftContent.appendChild(todoIcon);
+  leftContent.appendChild(doneIcon);
+  leftContent.appendChild(name);
+
+  task.appendChild(leftContent);
+  task.appendChild(deleteIcon);
+
+  return task;
+}
+
+// add new task
+function addTask(event) {
+  event.preventDefault();
+
+  const newTaskName = addTaskInput.value;
+
+  const newTask = {
+    id: uid(),
+    name: newTaskName,
+    toDo: true,
+  };
+
+  taskData.push(newTask);
+  let taskElement = createNewTaskEl(newTask.name, newTask.id);
+  taskList.appendChild(taskElement);
+  addTaskInput.value = "";
+  counter();
+  isTasksListEmpty();
+}
+
+// complete task
+function completeTask(event) {
+  const todoIcon = event.target;
+  todoIcon.classList.add("hidden");
+
+  const riskedText = todoIcon.parentNode.childNodes[2];
+  riskedText.classList.add("risked");
+
+  const taskToCompleteId = todoIcon.parentNode.parentNode.id;
+  const taskToComplete = document.getElementById(taskToCompleteId);
+
+  taskToComplete.classList.add("done");
+  taskToComplete.classList.remove("todo");
+
+  const doneIcon = todoIcon.parentNode.childNodes[1];
+  doneIcon.classList.remove("hidden");
+
+  taskData.find((item) => {
+    if (item.id == taskToCompleteId) {
+      item.toDo = false;
+    }
+  });
+
+  counter();
+}
+
+// incomplete task
+function incompleteTask(event) {
+  const doneIcon = event.target;
+  doneIcon.classList.add("hidden");
+
+  const riskedText = doneIcon.parentNode.childNodes[2];
+  riskedText.classList.add("risked");
+
+  const taskToIncompleteId = doneIcon.parentNode.parentNode.id;
+  const taskToIncomplete = document.getElementById(taskToIncompleteId);
+
+  taskToIncomplete.classList.add("todo");
+  taskToIncomplete.classList.remove("done");
+
+  const todoIcon = doneIcon.parentNode.childNodes[0];
+  todoIcon.classList.remove("hidden");
+
+  taskData.find((item) => {
+    if (item.id == taskToIncompleteId) {
+      item.toDo = true;
+    }
+  });
+
+  counter();
+}
+
+// delete task
+function deleteTask(event) {
+  const taskToDeleteId = event.target.parentNode.id;
+  const taskToDelete = document.getElementById(taskToDeleteId);
+
+  const tasksWithoutDeletedOne = taskData.filter((task) => {
+    return task.id != taskToDeleteId;
+  });
+
+  taskData = tasksWithoutDeletedOne;
+  taskList.removeChild(taskToDelete);
+  counter();
+  isTasksListEmpty();
+}
+
+// async HTML with taskData list
+for (const task of taskData) {
+  const taskItem = createNewTaskEl(task.name, task.id);
+  taskList.appendChild(taskItem);
+}
+
+// counter tasks
