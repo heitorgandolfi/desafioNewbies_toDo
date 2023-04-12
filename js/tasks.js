@@ -170,7 +170,6 @@ function completeTask(event) {
 }
 
 // render task list to status recovery of tasks
-
 function renderTaskList() {
   taskList.innerHTML = "";
 
@@ -184,7 +183,6 @@ function renderTaskList() {
       taskElement.querySelector(".ph-check-circle").classList.remove("hidden");
       taskElement.querySelector("p").classList.add("risked");
     }
-
     taskList.appendChild(taskElement);
   });
 }
@@ -231,6 +229,9 @@ function deleteTask(event) {
 
   taskData = tasksWithoutDeletedOne;
   taskList.removeChild(taskToDelete);
+
+  localStorage.removeItem(taskToDeleteId);
+  setLocalStorage(taskData);
 
   counter();
   isTasksListEmpty();
