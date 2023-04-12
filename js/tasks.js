@@ -3,16 +3,16 @@ function uid() {
 }
 
 let taskData = [
-  {
-    id: uid(),
-    name: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
-    toDo: true,
-  },
-  {
-    id: uid(),
-    name: "Doloribus ducimus dolores est dignissimos deleniti qui. Magnam.",
-    toDo: true,
-  },
+  // {
+  //   id: uid(),
+  //   name: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
+  //   toDo: false,
+  // },
+  // {
+  //   id: uid(),
+  //   name: "Doloribus ducimus dolores est dignissimos deleniti qui. Magnam.",
+  //   toDo: true,
+  // },
 ];
 
 const addTaskInput = document.querySelector("#task_input");
@@ -21,6 +21,19 @@ const taskList = document.querySelector("#tasks_list");
 const todoCounterText = document.querySelector("#todo_count");
 const doneCounterText = document.querySelector("#done_count");
 const emptyTasks = document.querySelector(".empty_tasks");
+
+function getLocalStorage() {
+  const data = localStorage.getItem("task");
+  if (data) {
+    taskData = JSON.parse(data);
+  }
+}
+
+getLocalStorage();
+
+function setLocalStorage(taskData) {
+  localStorage.setItem("task", JSON.stringify(taskData));
+}
 
 // counter
 function counter() {
@@ -107,12 +120,26 @@ function addTask(event) {
     toDo: true,
   };
 
+  localStorage.getItem("task")
+    ? (taskData = JSON.parse(localStorage.getItem("task")))
+    : (taskData = []);
+
+  if (localStorage.getItem("task")) {
+    taskData = JSON.parse(localStorage.getItem("task"));
+  } else {
+    taskData = [];
+  }
+
   taskData.push(newTask);
+  localStorage.setItem("task", JSON.stringify(taskData));
+
   let taskElement = createNewTaskEl(newTask.name, newTask.id);
   taskList.appendChild(taskElement);
-  addTaskInput.value = "";
+
   counter();
   isTasksListEmpty();
+
+  addTaskInput.value = "";
 }
 
 // complete task
@@ -138,8 +165,33 @@ function completeTask(event) {
     }
   });
 
+  setLocalStorage(taskData);
   counter();
 }
+
+// render task list to status recovery of tasks
+
+function renderTaskList() {
+  taskList.innerHTML = "";
+
+  taskData.forEach((task) => {
+    let taskElement = createNewTaskEl(task.name, task.id);
+
+    if (task.toDo === false) {
+      taskElement.classList.remove("todo");
+      taskElement.classList.add("done");
+      taskElement.querySelector(".ph-circle-dashed").classList.add("hidden");
+      taskElement.querySelector(".ph-check-circle").classList.remove("hidden");
+      taskElement.querySelector("p").classList.add("risked");
+    }
+
+    taskList.appendChild(taskElement);
+  });
+}
+
+window.addEventListener("load", () => {
+  renderTaskList();
+});
 
 // incomplete task
 function incompleteTask(event) {
@@ -164,6 +216,7 @@ function incompleteTask(event) {
     }
   });
 
+  setLocalStorage(taskData);
   counter();
 }
 
@@ -178,6 +231,7 @@ function deleteTask(event) {
 
   taskData = tasksWithoutDeletedOne;
   taskList.removeChild(taskToDelete);
+
   counter();
   isTasksListEmpty();
 }
@@ -187,5 +241,3 @@ for (const task of taskData) {
   const taskItem = createNewTaskEl(task.name, task.id);
   taskList.appendChild(taskItem);
 }
-
-// counter tasks
