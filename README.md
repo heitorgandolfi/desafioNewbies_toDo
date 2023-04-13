@@ -50,7 +50,7 @@ Contribuições são sempre bem-vindas! Se você tiver alguma sugestão ou encon
 
 ### **Contato:**
 
-Linkedin: www.linkedin.com/in/heitorgandolfi.
+Linkedin: www.linkedin.com/in/heitorgandolfi
 
 
 ### **Licença:**
