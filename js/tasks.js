@@ -135,9 +135,17 @@ function addTask(event) {
   addTaskInput.value = "";
 }
 
+// complete and incomplete task (toggle)
 function toggleTaskCompletion(event, isDone) {
   const icon = event.target;
   const task = icon.parentNode.parentNode;
+
+  // Por padrão, a tarefa nova possui a propriedade toDo como TRUE. Quando essa função é disparada pelo click no ícone da terefa não feita,
+  // ela, além de enviar o event, também fornece o booleano TRUE para o parâmetro isDone.
+  // Sendo assim, o IF abaixo fará as alterações visuais a partir da adição e remoção das classes.
+  // Sendo retornado o valor TRUE (ou seja, qnd clicar para concluir a tarefa), será realizada a primeira condição.
+  // Se for retornado o valor FALSE (ou seja, qnd clicar para desconcluir a tarefa), será realizada a segunda condição.
+  // As ações dentro das condições são exatamente o oposto uma da outra.
 
   if (isDone) {
     icon.classList.add("hidden");
@@ -155,8 +163,17 @@ function toggleTaskCompletion(event, isDone) {
     task.querySelector("p").classList.remove("risked");
   }
 
+  // Capturo o id da Task que acabou de ser criada.
+  // Capturo o index dessa task dentro do meu taskData.
+  // O método vai percorrer o atributo ID dentro dos elementos de taskData e, ao encontrar um valor que seja identico ao id contido em taskId,
+  //  retornará o index do objeto ao qual pertence.
+
   const taskId = task.getAttribute("id");
   const taskIndex = taskData.findIndex((task) => task.id === taskId);
+
+  // O findIndex, quando não localiza, retorna -1, sendo assim, caso o seu valor seja diferente de -1 (ou seja, caso tenha encontrado o ID idêntico),
+  // ele altera o respectivo index do taskData, setando o atributo "toDo" para negar o valor contido nele. Se for False, vira True e vice-versa.
+  // Por fim, seta para o local storage e invoca a função counter para atualizar o contador.
 
   if (taskIndex !== -1) {
     taskData[taskIndex].toDo = !isDone;
