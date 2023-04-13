@@ -2,18 +2,7 @@ function uid() {
   return Date.now().toString(16) + Math.random().toString(16).substring(2);
 }
 
-let taskData = [
-  // {
-  //   id: uid(),
-  //   name: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
-  //   toDo: false,
-  // },
-  // {
-  //   id: uid(),
-  //   name: "Doloribus ducimus dolores est dignissimos deleniti qui. Magnam.",
-  //   toDo: true,
-  // },
-];
+let taskData = [];
 
 const addTaskInput = document.querySelector("#task_input");
 const addTaskButton = document.getElementsByTagName("button")[0];
@@ -230,7 +219,7 @@ function deleteTask(event) {
   taskData = tasksWithoutDeletedOne;
   taskList.removeChild(taskToDelete);
 
-  localStorage.removeItem(taskToDeleteId);
+  localStorage.removeItem(taskToDelete);
   setLocalStorage(taskData);
 
   counter();
