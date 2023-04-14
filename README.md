@@ -16,6 +16,7 @@ Este é um projeto de uma aplicação web de lista de tarefas, na qual o usuári
 ### **Funcionalidades:**
 
 - Adicionar tarefas.
+- As tarefas devem ter conteúdo, não podendo ser criadas em branco.
 - Marcar tarefas como concluídas.
 - Excluir tarefas da lista.
 - Salvar tarefas no LocalStorage.
