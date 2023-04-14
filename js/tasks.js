@@ -10,6 +10,8 @@ const taskList = document.querySelector("#tasks_list");
 const todoCounterText = document.querySelector("#todo_count");
 const doneCounterText = document.querySelector("#done_count");
 const emptyTasks = document.querySelector(".empty_tasks");
+const errorMsgContent = document.querySelector(".error_msg");
+const inputTurnRed = document.querySelector(".new_task_form");
 
 function getLocalStorage() {
   const data = localStorage.getItem("task");
@@ -66,7 +68,9 @@ function createNewTaskEl(taskName, taskId) {
   todoIcon.classList.add("ph-duotone");
   todoIcon.classList.add("ph-circle-dashed");
   todoIcon.classList.add("check_btn");
-  todoIcon.addEventListener("click", completeTask);
+  todoIcon.addEventListener("click", (event) => {
+    toggleTaskCompletion(event, true);
+  });
 
   // done icon
   let doneIcon = document.createElement("i");
@@ -74,7 +78,9 @@ function createNewTaskEl(taskName, taskId) {
   doneIcon.classList.add("ph-check-circle");
   doneIcon.classList.add("check_btn");
   doneIcon.classList.add("hidden");
-  doneIcon.addEventListener("click", incompleteTask);
+  doneIcon.addEventListener("click", (event) => {
+    toggleTaskCompletion(event, false);
+  });
 
   // task name / p
   let name = document.createElement("p");
@@ -101,7 +107,18 @@ function createNewTaskEl(taskName, taskId) {
 function addTask(event) {
   event.preventDefault();
 
-  const newTaskName = addTaskInput.value;
+  let newTaskName;
+
+  if (addTaskInput.value == "") {
+    errorMsgContent.classList.remove("hidden");
+    inputTurnRed.classList.add("error");
+    return;
+  } else {
+    newTaskName = addTaskInput.value;
+
+    errorMsgContent.classList.add("hidden");
+    inputTurnRed.classList.remove("error");
+  }
 
   const newTask = {
     id: uid(),
@@ -131,32 +148,79 @@ function addTask(event) {
   addTaskInput.value = "";
 }
 
-// complete task
-function completeTask(event) {
-  const todoIcon = event.target;
-  todoIcon.classList.add("hidden");
+// complete and incomplete task (toggle)
+function toggleTaskCompletion(event, isDone) {
+  const icon = event.target;
+  const task = icon.parentNode.parentNode;
 
-  const riskedText = todoIcon.parentNode.childNodes[2];
-  riskedText.classList.add("risked");
+  // Por padrão, a tarefa nova possui a propriedade toDo como TRUE. Quando essa função é disparada pelo click no ícone da terefa não feita,
+  // ela, além de enviar o event, também fornece o booleano TRUE para o parâmetro isDone.
+  // Sendo assim, o IF abaixo fará as alterações visuais a partir da adição e remoção das classes.
+  // Sendo retornado o valor TRUE (ou seja, qnd clicar para concluir a tarefa), será realizada a primeira condição.
+  // Se for retornado o valor FALSE (ou seja, qnd clicar para desconcluir a tarefa), será realizada a segunda condição.
+  // As ações dentro das condições são exatamente o oposto uma da outra.
 
-  const taskToCompleteId = todoIcon.parentNode.parentNode.id;
-  const taskToComplete = document.getElementById(taskToCompleteId);
+  if (isDone) {
+    icon.classList.add("hidden");
+    task.classList.add("done");
+    task.classList.remove("todo");
+    task.querySelector(".ph-circle-dashed").classList.add("hidden");
+    task.querySelector(".ph-check-circle").classList.remove("hidden");
+    task.querySelector("p").classList.add("risked");
+  } else {
+    icon.classList.add("hidden");
+    task.classList.add("todo");
+    task.classList.remove("done");
+    task.querySelector(".ph-check-circle").classList.add("hidden");
+    task.querySelector(".ph-circle-dashed").classList.remove("hidden");
+    task.querySelector("p").classList.remove("risked");
+  }
 
-  taskToComplete.classList.add("done");
-  taskToComplete.classList.remove("todo");
+  // Capturo o id da Task que acabou de ser criada.
+  // Capturo o index dessa task dentro do meu taskData.
+  // O método vai percorrer o atributo ID dentro dos elementos de taskData e, ao encontrar um valor que seja identico ao id contido em taskId,
+  //  retornará o index do objeto ao qual pertence.
 
-  const doneIcon = todoIcon.parentNode.childNodes[1];
-  doneIcon.classList.remove("hidden");
+  const taskId = task.getAttribute("id");
+  const taskIndex = taskData.findIndex((task) => task.id === taskId);
 
-  taskData.find((item) => {
-    if (item.id == taskToCompleteId) {
-      item.toDo = false;
-    }
-  });
+  // O findIndex, quando não localiza, retorna -1, sendo assim, caso o seu valor seja diferente de -1 (ou seja, caso tenha encontrado o ID idêntico),
+  // ele altera o respectivo index do taskData, setando o atributo "toDo" para negar o valor contido nele. Se for False, vira True e vice-versa.
+  // Por fim, seta para o local storage e invoca a função counter para atualizar o contador.
 
-  setLocalStorage(taskData);
-  counter();
+  if (taskIndex !== -1) {
+    taskData[taskIndex].toDo = !isDone;
+    setLocalStorage(taskData);
+    counter();
+  }
 }
+
+// // complete task
+// function completeTask(event) {
+//   const todoIcon = event.target;
+//   todoIcon.classList.add("hidden");
+
+//   const riskedText = todoIcon.parentNode.childNodes[2];
+//   riskedText.classList.add("risked");
+
+//   const taskToCompleteId = todoIcon.parentNode.parentNode.id;
+//   const taskToComplete = document.getElementById(taskToCompleteId);
+
+//   taskToComplete.classList.add("done");
+//   taskToComplete.classList.remove("todo");
+
+//   const doneIcon = todoIcon.parentNode.childNodes[1];
+//   doneIcon.classList.remove("hidden");
+
+//   taskData.find((item) => {
+//     if (item.id == taskToCompleteId) {
+//       item.toDo = false;
+//     }
+//   });
+
+//   setLocalStorage(taskData);
+//   counter();
+// }
 
 // render task list to status recovery of tasks
 function renderTaskList() {
@@ -180,32 +244,32 @@ window.addEventListener("load", () => {
   renderTaskList();
 });
 
-// incomplete task
-function incompleteTask(event) {
-  const doneIcon = event.target;
-  doneIcon.classList.add("hidden");
+// // incomplete task
+// function incompleteTask(event) {
+//   const doneIcon = event.target;
+//   doneIcon.classList.add("hidden");
 
-  const riskedText = doneIcon.parentNode.childNodes[2];
-  riskedText.classList.add("risked");
+//   const riskedText = doneIcon.parentNode.childNodes[2];
+//   riskedText.classList.add("risked");
 
-  const taskToIncompleteId = doneIcon.parentNode.parentNode.id;
-  const taskToIncomplete = document.getElementById(taskToIncompleteId);
+//   const taskToIncompleteId = doneIcon.parentNode.parentNode.id;
+//   const taskToIncomplete = document.getElementById(taskToIncompleteId);
 
-  taskToIncomplete.classList.add("todo");
-  taskToIncomplete.classList.remove("done");
+//   taskToIncomplete.classList.add("todo");
+//   taskToIncomplete.classList.remove("done");
 
-  const todoIcon = doneIcon.parentNode.childNodes[0];
-  todoIcon.classList.remove("hidden");
+//   const todoIcon = doneIcon.parentNode.childNodes[0];
+//   todoIcon.classList.remove("hidden");
 
-  taskData.find((item) => {
-    if (item.id == taskToIncompleteId) {
-      item.toDo = true;
-    }
-  });
+//   taskData.find((item) => {
+//     if (item.id == taskToIncompleteId) {
+//       item.toDo = true;
+//     }
+//   });
 
-  setLocalStorage(taskData);
-  counter();
-}
+//   setLocalStorage(taskData);
+//   counter();
+// }
 
 // delete task
 function deleteTask(event) {
