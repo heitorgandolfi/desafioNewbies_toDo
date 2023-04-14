@@ -138,6 +138,21 @@ header {
   color: var(--gray-200);
 } */
 
+/* ------------------------------ ERROR MSG BELOW ------------------------------ */
+
+.error_msg {
+  padding: 0.5rem;
+}
+
+.error_msg p {
+  color: var(--red--500);
+  font-size: 12px;
+}
+
+.error input {
+  border: 1px solid var(--red--500);
+}
+
 /* ------------------------------ TASKS COUNTER BELOW ------------------------------ */
 
 .tasks_counter {

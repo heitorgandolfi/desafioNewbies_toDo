@@ -10,6 +10,8 @@ const taskList = document.querySelector("#tasks_list");
 const todoCounterText = document.querySelector("#todo_count");
 const doneCounterText = document.querySelector("#done_count");
 const emptyTasks = document.querySelector(".empty_tasks");
+const errorMsgContent = document.querySelector(".error_msg");
+const inputTurnRed = document.querySelector(".new_task_form");
 
 function getLocalStorage() {
   const data = localStorage.getItem("task");
@@ -105,7 +107,18 @@ function createNewTaskEl(taskName, taskId) {
 function addTask(event) {
   event.preventDefault();
 
-  const newTaskName = addTaskInput.value;
+  let newTaskName;
+
+  if (addTaskInput.value == "") {
+    errorMsgContent.classList.remove("hidden");
+    inputTurnRed.classList.add("error");
+    return;
+  } else {
+    newTaskName = addTaskInput.value;
+
+    errorMsgContent.classList.add("hidden");
+    inputTurnRed.classList.remove("error");
+  }
 
   const newTask = {
     id: uid(),

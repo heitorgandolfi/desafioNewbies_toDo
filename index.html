@@ -53,6 +53,10 @@
           </button>
         </form>
 
+        <div class="error_msg hidden">
+          <p>Não é possível inserir uma tareta sem conteúdo. Seja criativo!</p>
+        </div>
+
         <section class="tasks_counter">
           <div class="all_tasks">
             <strong>Tarefas criadas</strong>
@@ -75,37 +79,7 @@
           </div>
         </section>
 
-        <ul id="tasks_list" class="tasks_list">
-          <!-- <li class="task todo">
-            <div class="left_content">
-              <i
-                class="ph-duotone ph-circle-dashed check_btn"
-                onclick="completeTask()"
-              ></i>
-              <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
-            </div>
-            <i
-              class="ph-duotone ph-trash delete_btn"
-              onclick="deleteTask()"
-            ></i>
-          </li>
-
-          <li class="task done">
-            <div class="left_content">
-              <i
-                class="ph-duotone ph-check-circle check_btn"
-                onclick="incompleteTask()"
-              ></i>
-              <p class="risked">
-                Doloribus ducimus dolores est dignissimos deleniti qui. Magnam.
-              </p>
-            </div>
-            <i
-              class="ph-duotone ph-trash delete_btn"
-              onclick="deleteTask()"
-            ></i>
-          </li> -->
-        </ul>
+        <ul id="tasks_list" class="tasks_list"></ul>
       </main>
     </div>
 
