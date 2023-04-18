@@ -17,6 +17,8 @@ function getLocalStorage() {
   const data = localStorage.getItem("task");
   if (data) {
     taskData = JSON.parse(data);
+  } else {
+    taskData = [];
   }
 }
 
@@ -126,18 +128,8 @@ function addTask(event) {
     toDo: true,
   };
 
-  localStorage.getItem("task")
-    ? (taskData = JSON.parse(localStorage.getItem("task")))
-    : (taskData = []);
-
-  if (localStorage.getItem("task")) {
-    taskData = JSON.parse(localStorage.getItem("task"));
-  } else {
-    taskData = [];
-  }
-
   taskData.push(newTask);
-  localStorage.setItem("task", JSON.stringify(taskData));
+  setLocalStorage(taskData);
 
   let taskElement = createNewTaskEl(newTask.name, newTask.id);
   taskList.appendChild(taskElement);
@@ -195,33 +187,6 @@ function toggleTaskCompletion(event, isDone) {
   }
 }
 
-// // complete task
-// function completeTask(event) {
-//   const todoIcon = event.target;
-//   todoIcon.classList.add("hidden");
-
-//   const riskedText = todoIcon.parentNode.childNodes[2];
-//   riskedText.classList.add("risked");
-
-//   const taskToCompleteId = todoIcon.parentNode.parentNode.id;
-//   const taskToComplete = document.getElementById(taskToCompleteId);
-
-//   taskToComplete.classList.add("done");
-//   taskToComplete.classList.remove("todo");
-
-//   const doneIcon = todoIcon.parentNode.childNodes[1];
-//   doneIcon.classList.remove("hidden");
-
-//   taskData.find((item) => {
-//     if (item.id == taskToCompleteId) {
-//       item.toDo = false;
-//     }
-//   });
-
-//   setLocalStorage(taskData);
-//   counter();
-// }
-
 // render task list to status recovery of tasks
 function renderTaskList() {
   taskList.innerHTML = "";
@@ -243,33 +208,6 @@ function renderTaskList() {
 window.addEventListener("load", () => {
   renderTaskList();
 });
-
-// // incomplete task
-// function incompleteTask(event) {
-//   const doneIcon = event.target;
-//   doneIcon.classList.add("hidden");
-
-//   const riskedText = doneIcon.parentNode.childNodes[2];
-//   riskedText.classList.add("risked");
-
-//   const taskToIncompleteId = doneIcon.parentNode.parentNode.id;
-//   const taskToIncomplete = document.getElementById(taskToIncompleteId);
-
-//   taskToIncomplete.classList.add("todo");
-//   taskToIncomplete.classList.remove("done");
-
-//   const todoIcon = doneIcon.parentNode.childNodes[0];
-//   todoIcon.classList.remove("hidden");
-
-//   taskData.find((item) => {
-//     if (item.id == taskToIncompleteId) {
-//       item.toDo = true;
-//     }
-//   });
-
-//   setLocalStorage(taskData);
-//   counter();
-// }
 
 // delete task
 function deleteTask(event) {
