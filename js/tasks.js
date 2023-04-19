@@ -187,6 +187,25 @@ function toggleTaskCompletion(event, isDone) {
   }
 }
 
+// delete task
+function deleteTask(event) {
+  const taskToDeleteId = event.target.parentNode.id;
+  const taskToDelete = document.getElementById(taskToDeleteId);
+
+  const tasksWithoutDeletedOne = taskData.filter((task) => {
+    return task.id != taskToDeleteId;
+  });
+
+  taskData = tasksWithoutDeletedOne;
+  taskList.removeChild(taskToDelete);
+
+  localStorage.removeItem(taskToDelete);
+  setLocalStorage(taskData);
+
+  counter();
+  isTasksListEmpty();
+}
+
 // render task list to status recovery of tasks
 function renderTaskList() {
   // taskList.innerHTML = "";
@@ -208,25 +227,6 @@ function renderTaskList() {
 window.addEventListener("load", () => {
   renderTaskList();
 });
-
-// delete task
-function deleteTask(event) {
-  const taskToDeleteId = event.target.parentNode.id;
-  const taskToDelete = document.getElementById(taskToDeleteId);
-
-  const tasksWithoutDeletedOne = taskData.filter((task) => {
-    return task.id != taskToDeleteId;
-  });
-
-  taskData = tasksWithoutDeletedOne;
-  taskList.removeChild(taskToDelete);
-
-  localStorage.removeItem(taskToDelete);
-  setLocalStorage(taskData);
-
-  counter();
-  isTasksListEmpty();
-}
 
 // async HTML with taskData list
 // for (const task of taskData) {
