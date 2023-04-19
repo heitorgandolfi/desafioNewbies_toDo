@@ -189,7 +189,7 @@ function toggleTaskCompletion(event, isDone) {
 
 // render task list to status recovery of tasks
 function renderTaskList() {
-  taskList.innerHTML = "";
+  // taskList.innerHTML = "";
 
   taskData.forEach((task) => {
     let taskElement = createNewTaskEl(task.name, task.id);
@@ -229,7 +229,7 @@ function deleteTask(event) {
 }
 
 // async HTML with taskData list
-for (const task of taskData) {
-  const taskItem = createNewTaskEl(task.name, task.id);
-  taskList.appendChild(taskItem);
-}
+// for (const task of taskData) {
+//   const taskItem = createNewTaskEl(task.name, task.id);
+//   taskList.appendChild(taskItem);
+// }
