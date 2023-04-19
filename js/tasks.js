@@ -187,28 +187,6 @@ function toggleTaskCompletion(event, isDone) {
   }
 }
 
-// render task list to status recovery of tasks
-function renderTaskList() {
-  taskList.innerHTML = "";
-
-  taskData.forEach((task) => {
-    let taskElement = createNewTaskEl(task.name, task.id);
-
-    if (task.toDo === false) {
-      taskElement.classList.remove("todo");
-      taskElement.classList.add("done");
-      taskElement.querySelector(".ph-circle-dashed").classList.add("hidden");
-      taskElement.querySelector(".ph-check-circle").classList.remove("hidden");
-      taskElement.querySelector("p").classList.add("risked");
-    }
-    taskList.appendChild(taskElement);
-  });
-}
-
-window.addEventListener("load", () => {
-  renderTaskList();
-});
-
 // delete task
 function deleteTask(event) {
   const taskToDeleteId = event.target.parentNode.id;
@@ -228,8 +206,30 @@ function deleteTask(event) {
   isTasksListEmpty();
 }
 
-// async HTML with taskData list
-for (const task of taskData) {
-  const taskItem = createNewTaskEl(task.name, task.id);
-  taskList.appendChild(taskItem);
+// render task list to status recovery of tasks
+function renderTaskList() {
+  // taskList.innerHTML = "";
+
+  taskData.forEach((task) => {
+    let taskElement = createNewTaskEl(task.name, task.id);
+
+    if (task.toDo === false) {
+      taskElement.classList.remove("todo");
+      taskElement.classList.add("done");
+      taskElement.querySelector(".ph-circle-dashed").classList.add("hidden");
+      taskElement.querySelector(".ph-check-circle").classList.remove("hidden");
+      taskElement.querySelector("p").classList.add("risked");
+    }
+    taskList.appendChild(taskElement);
+  });
 }
+
+window.addEventListener("load", () => {
+  renderTaskList();
+});
+
+// async HTML with taskData list
+// for (const task of taskData) {
+//   const taskItem = createNewTaskEl(task.name, task.id);
+//   taskList.appendChild(taskItem);
+// }
