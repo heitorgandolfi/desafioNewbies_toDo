@@ -95,12 +95,28 @@ function createNewTaskEl(taskName, taskId) {
   deleteIcon.classList.add("delete_btn");
   deleteIcon.addEventListener("click", deleteTask);
 
+  // update icon
+  let updateIcon = document.createElement("i");
+  updateIcon.classList.add("ph-duotone");
+  updateIcon.classList.add("ph-pencil");
+  updateIcon.classList.add("update_btn");
+  updateIcon.addEventListener("click", () => {
+    console.log("oi");
+  });
+
+  // div to wrapper delete icon & update icon
+
+  let wrapperIcons = document.createElement("div");
+  wrapperIcons.appendChild(deleteIcon);
+  wrapperIcons.appendChild(updateIcon);
+
   leftContent.appendChild(todoIcon);
   leftContent.appendChild(doneIcon);
   leftContent.appendChild(name);
 
   task.appendChild(leftContent);
-  task.appendChild(deleteIcon);
+  task.appendChild(wrapperIcons);
+  // task.appendChild(deleteIcon);
 
   return task;
 }

@@ -262,13 +262,22 @@ header {
   color: var(--gray-100);
 }
 
-.delete_btn {
+.delete_btn,
+.update_btn {
   font-size: 20px;
   color: var(--gray-200);
 }
 
+.delete_btn{
+  margin-right: 0.75rem;
+}
+
 .delete_btn:hover {
   color: var(--red--500);
+}
+
+.update_btn:hover {
+  color: var(--blue-500);
 }
 
 /* ------------------------------ TODO TASK BELOW ------------------------------ */
