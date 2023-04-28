@@ -24,6 +24,7 @@
   --yellow-500: #ffd231;
   --yellow-600: #644f04;
   --red--500: #de4e4e;
+  --red--700: #550f0f;
 }
 
 body {
@@ -90,6 +91,42 @@ header {
   justify-content: center;
 
   padding: calc(6.75rem - 2rem) 0;
+}
+
+/* ------------------------------ MODAL BELOW ------------------------------ */
+
+.update_task_modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  max-width: 420px;
+  width: 95%;
+  height: 200px;
+
+  padding: 32px;
+  border-radius: 8px;
+  background-color: var(--gray-400);
+}
+
+.update_task_modal input {
+  width: 95%;
+  margin-bottom: 8px;
+}
+
+.update_task_modal div {
+  text-align: center;
+}
+
+.update_task_modal_okBtn {
+  background-color: var(--green-500);
+  color: var(--green-600);
+}
+
+.update_task_modal_cancelBtn {
+  background-color: var(--red--500);
+  color: var(--red--700);
 }
 
 /* ------------------------------ FORM BELOW ------------------------------ */
