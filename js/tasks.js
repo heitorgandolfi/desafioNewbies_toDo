@@ -4,6 +4,14 @@ function uid() {
 
 let taskData = [];
 
+// modal elements
+const updateTaskModal = document.querySelector(".update_task_modal");
+const inputNewText = document.querySelector(".inputNewText");
+
+const insertBtn = document.querySelector(".update_task_modal_okBtn");
+const cancelBtn = document.querySelector(".update_task_modal_cancelBtn");
+
+// main elements
 const addTaskInput = document.querySelector("#task_input");
 const addTaskButton = document.getElementsByTagName("button")[0];
 const taskList = document.querySelector("#tasks_list");
@@ -100,9 +108,7 @@ function createNewTaskEl(taskName, taskId) {
   updateIcon.classList.add("ph-duotone");
   updateIcon.classList.add("ph-pencil");
   updateIcon.classList.add("update_btn");
-  updateIcon.addEventListener("click", () => {
-    console.log("oi");
-  });
+  updateIcon.addEventListener("click", updateTask);
 
   // div to wrapper delete icon & update icon
 
@@ -205,7 +211,7 @@ function toggleTaskCompletion(event, isDone) {
 
 // delete task
 function deleteTask(event) {
-  const taskToDeleteId = event.target.parentNode.id;
+  const taskToDeleteId = event.target.parentNode.parentNode.id;
   const taskToDelete = document.getElementById(taskToDeleteId);
 
   const tasksWithoutDeletedOne = taskData.filter((task) => {
@@ -221,6 +227,40 @@ function deleteTask(event) {
   counter();
   isTasksListEmpty();
 }
+
+// update task
+let globalupdateTaskGetElement;
+function updateTask(event) {
+  // abrir o modal - dps quebrar em uma função
+  updateTaskModal.classList.toggle("hidden");
+
+  // acessando o elemento que será editado
+  const updateTaskGetId = event.target.parentNode.parentNode.id;
+  const updateTaskGetElement = taskData.find(
+    (task) => task.id === updateTaskGetId
+  );
+
+  globalupdateTaskGetElement = updateTaskGetElement;
+}
+
+function updateTaskBtn() {
+  // Criar validação para novo valor em branco
+
+  globalupdateTaskGetElement.name = inputNewText.value;
+  updateTaskModal.classList.toggle("hidden");
+
+  setLocalStorage(taskData);
+
+  location.reload();
+}
+
+function cancelUpdateTaskBtn() {
+  updateTaskModal.classList.add("hidden");
+}
+
+// modal buttons - insert new value / cancel op
+insertBtn.addEventListener("click", updateTaskBtn);
+cancelBtn.addEventListener("click", cancelUpdateTaskBtn);
 
 // render task list to status recovery of tasks
 function renderTaskList() {

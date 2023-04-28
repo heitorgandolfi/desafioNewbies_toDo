@@ -107,7 +107,7 @@ header {
 
   padding: 32px;
   border-radius: 8px;
-  background-color: var(--gray-400);
+  background-color: var(--gray-500);
 }
 
 .update_task_modal input {
@@ -305,7 +305,7 @@ header {
   color: var(--gray-200);
 }
 
-.delete_btn{
+.delete_btn {
   margin-right: 0.75rem;
 }
 
