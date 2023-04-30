@@ -242,6 +242,7 @@ function updateTask(event) {
   globalupdateTaskGetElement = updateTaskGetElement;
 }
 
+// modal success button - onClick on html
 function updateTaskBtn() {
   if (!inputNewText.value) {
     modalErrorMsgContent.classList.remove("hidden");
@@ -258,14 +259,10 @@ function updateTaskBtn() {
     location.reload();
   }
 }
-
+// modal cancel button - onClick on html
 function cancelUpdateTaskBtn() {
   updateTaskModal.classList.add("hidden");
 }
-
-// modal buttons - insert new value / cancel op
-insertBtn.addEventListener("click", updateTaskBtn);
-cancelBtn.addEventListener("click", cancelUpdateTaskBtn);
 
 // render task list to status recovery of tasks
 function renderTaskList() {
