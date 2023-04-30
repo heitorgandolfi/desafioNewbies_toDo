@@ -7,6 +7,7 @@ let taskData = [];
 // modal elements
 const updateTaskModal = document.querySelector(".update_task_modal");
 const inputNewText = document.querySelector(".inputNewText");
+const modalErrorMsgContent = document.querySelector(".modal_error_msg");
 
 const insertBtn = document.querySelector(".update_task_modal_okBtn");
 const cancelBtn = document.querySelector(".update_task_modal_cancelBtn");
@@ -231,10 +232,8 @@ function deleteTask(event) {
 // update task
 let globalupdateTaskGetElement;
 function updateTask(event) {
-  // abrir o modal - dps quebrar em uma função
-  updateTaskModal.classList.toggle("hidden");
+  updateTaskModal.classList.remove("hidden");
 
-  // acessando o elemento que será editado
   const updateTaskGetId = event.target.parentNode.parentNode.id;
   const updateTaskGetElement = taskData.find(
     (task) => task.id === updateTaskGetId
@@ -244,14 +243,20 @@ function updateTask(event) {
 }
 
 function updateTaskBtn() {
-  // Criar validação para novo valor em branco
+  if (!inputNewText.value) {
+    modalErrorMsgContent.classList.remove("hidden");
+    updateTaskModal.classList.add("error");
+  } else {
+    globalupdateTaskGetElement.name = inputNewText.value;
 
-  globalupdateTaskGetElement.name = inputNewText.value;
-  updateTaskModal.classList.toggle("hidden");
+    modalErrorMsgContent.classList.add("hidden");
+    updateTaskModal.classList.remove("error");
+    updateTaskModal.classList.toggle("hidden");
 
-  setLocalStorage(taskData);
+    setLocalStorage(taskData);
 
-  location.reload();
+    location.reload();
+  }
 }
 
 function cancelUpdateTaskBtn() {
@@ -264,8 +269,6 @@ cancelBtn.addEventListener("click", cancelUpdateTaskBtn);
 
 // render task list to status recovery of tasks
 function renderTaskList() {
-  // taskList.innerHTML = "";
-
   taskData.forEach((task) => {
     let taskElement = createNewTaskEl(task.name, task.id);
 
