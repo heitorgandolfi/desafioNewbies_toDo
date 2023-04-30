@@ -20,10 +20,23 @@
   --blue-500: #4e6ede;
   --blue-600: #3352c2;
   --green-500: #26c277;
+  --green-550: #23a868;
   --green-600: #093d24;
   --yellow-500: #ffd231;
   --yellow-600: #644f04;
   --red--500: #de4e4e;
+  --red--550: #b33838;
+  --red--700: #550f0f;
+}
+
+#background_update_task_modal {
+  z-index: 2;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
 body {
@@ -90,6 +103,82 @@ header {
   justify-content: center;
 
   padding: calc(6.75rem - 2rem) 0;
+}
+
+/* ------------------------------ MODAL INPUT BELOW ------------------------------ */
+
+.update_task_modal {
+  position: fixed;
+  z-index: 3;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  max-width: 420px;
+  width: 95%;
+  height: 200px;
+
+  padding: 32px;
+  border-radius: 8px;
+  background-color: var(--gray-500);
+}
+
+.update_task_modal input {
+  width: 95%;
+  margin-bottom: 12px;
+
+  background-color: var(--gray-400);
+  color: var(--gray-200);
+  border: 1px solid transparent;
+}
+
+.update_task_modal input:hover {
+  border: 1px solid var(--blue-500);
+}
+
+.update_task_modal div {
+  text-align: center;
+}
+
+/* ------------------------------ MODAL BUTTONS BELOW ------------------------------ */
+
+.update_task_modal_okBtn,
+.update_task_modal_cancelBtn {
+  color: var(--gray-100);
+  border: 1px solid transparent;
+}
+
+.update_task_modal_okBtn {
+  background-color: var(--green-500);
+}
+
+.update_task_modal_okBtn:hover {
+  background-color: var(--green-550);
+}
+
+.update_task_modal_cancelBtn {
+  background-color: var(--red--500);
+}
+
+.update_task_modal_cancelBtn:hover {
+  background-color: var(--red--550);
+}
+
+/* ------------------------------ MODAL ERROR MSG BELOW ------------------------------ */
+
+.modal_error_msg {
+  padding: 4px;
+}
+
+.modal_error_msg p {
+  text-align: start;
+  font-size: 12px;
+  margin-bottom: 8px;
+  color: var(--red--500);
+}
+
+.error input {
+  border: 1px solid var(--red--500);
 }
 
 /* ------------------------------ FORM BELOW ------------------------------ */
@@ -262,13 +351,22 @@ header {
   color: var(--gray-100);
 }
 
-.delete_btn {
+.delete_btn,
+.update_btn {
   font-size: 20px;
   color: var(--gray-200);
 }
 
+.delete_btn {
+  margin-right: 0.75rem;
+}
+
 .delete_btn:hover {
   color: var(--red--500);
+}
+
+.update_btn:hover {
+  color: var(--blue-500);
 }
 
 /* ------------------------------ TODO TASK BELOW ------------------------------ */
