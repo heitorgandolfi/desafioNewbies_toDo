@@ -42,20 +42,30 @@
       </header>
 
       <main>
-        <section class="update_task_modal hidden">
-          <input
-            class="inputNewText"
-            type="text"
-            placeholder="Edite a sua tarefa"
-          />
-          <div class="modal_error_msg hidden">
-            <p>Para editar a tarefa, insira algum texto.</p>
-          </div>
-          <div>
-            <button class="update_task_modal_okBtn" onclick="updateTaskBtn()">Atualizar</button>
-            <button class="update_task_modal_cancelBtn" onclick="cancelUpdateTaskBtn()">Cancelar</button>
-          </div>
-        </section>
+        <div id="background_update_task_modal" class="hidden">
+          <section class="update_task_modal hidden">
+            <input
+              class="inputNewText"
+              type="text"
+              placeholder="Edite a sua tarefa"
+            />
+            <div class="modal_error_msg hidden">
+              <p>Para editar a tarefa, insira algum texto.</p>
+            </div>
+            <div>
+              <button class="update_task_modal_okBtn" onclick="updateTaskBtn()">
+                Atualizar
+              </button>
+              <button
+                class="update_task_modal_cancelBtn"
+                onclick="cancelUpdateTaskBtn()"
+              >
+                Cancelar
+              </button>
+            </div>
+          </section>
+        </div>
+
         <form class="new_task_form">
           <input
             id="task_input"
@@ -96,7 +106,6 @@
         <ul id="tasks_list" class="tasks_list"></ul>
       </main>
     </div>
-
     <script src="./js/tasks.js"></script>
   </body>
 </html>

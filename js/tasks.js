@@ -8,6 +8,7 @@ let taskData = [];
 const updateTaskModal = document.querySelector(".update_task_modal");
 const inputNewText = document.querySelector(".inputNewText");
 const modalErrorMsgContent = document.querySelector(".modal_error_msg");
+const modalBackGround = document.querySelector("#background_update_task_modal");
 
 const insertBtn = document.querySelector(".update_task_modal_okBtn");
 const cancelBtn = document.querySelector(".update_task_modal_cancelBtn");
@@ -233,6 +234,7 @@ function deleteTask(event) {
 let globalupdateTaskGetElement;
 function updateTask(event) {
   updateTaskModal.classList.remove("hidden");
+  modalBackGround.classList.remove("hidden");
 
   const updateTaskGetId = event.target.parentNode.parentNode.id;
   const updateTaskGetElement = taskData.find(
@@ -252,7 +254,10 @@ function updateTaskBtn() {
 
     modalErrorMsgContent.classList.add("hidden");
     updateTaskModal.classList.remove("error");
-    updateTaskModal.classList.toggle("hidden");
+
+    updateTaskModal.classList.add("hidden");
+
+    modalBackGround.classList.add("hidden");
 
     setLocalStorage(taskData);
 
@@ -262,6 +267,8 @@ function updateTaskBtn() {
 // modal cancel button - onClick on html
 function cancelUpdateTaskBtn() {
   updateTaskModal.classList.add("hidden");
+
+  modalBackGround.classList.add("hidden");
 }
 
 // render task list to status recovery of tasks
