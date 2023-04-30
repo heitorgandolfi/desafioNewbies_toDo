@@ -268,6 +268,9 @@ function updateTaskBtn() {
 function cancelUpdateTaskBtn() {
   updateTaskModal.classList.add("hidden");
 
+  modalErrorMsgContent.classList.add("hidden");
+  updateTaskModal.classList.remove("error");
+
   modalBackGround.classList.add("hidden");
 }
 

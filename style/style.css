@@ -125,7 +125,7 @@ header {
 
 .update_task_modal input {
   width: 95%;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 
   background-color: var(--gray-400);
   color: var(--gray-200);
@@ -173,7 +173,7 @@ header {
 .modal_error_msg p {
   text-align: start;
   font-size: 12px;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
   color: var(--red--500);
 }
 
