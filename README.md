@@ -21,6 +21,7 @@ Este é um projeto de uma aplicação web de lista de tarefas, na qual o usuári
 - Excluir tarefas da lista.
 - Salvar tarefas no LocalStorage.
 - :loudspeaker:	**Editar tarefas**. (Feature disponibilizada em 29/04)
+- - :loudspeaker:	**Confirmação de exclusão de tarefa**. (Feature disponibilizada em 09/05)
 
 ### **Instalação:**
 
