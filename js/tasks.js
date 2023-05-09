@@ -213,6 +213,11 @@ function toggleTaskCompletion(event, isDone) {
 
 // delete task
 function deleteTask(event) {
+  // delete confirmation
+  const deleteConfirmation = confirm("Realmente deseja excluir essa tarefa?");
+  if (!deleteConfirmation) return;
+
+  // delete Action
   const taskToDeleteId = event.target.parentNode.parentNode.id;
   const taskToDelete = document.getElementById(taskToDeleteId);
 
