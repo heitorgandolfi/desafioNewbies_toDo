@@ -42,7 +42,6 @@
 body {
   background-color: var(--gray-500);
   color: var(--gray-100);
-  /* -webkit-font-smoothing: antialiased; */
 }
 
 body,
@@ -81,19 +80,12 @@ input:focus {
   display: grid;
   grid-template-columns: 1fr;
   gap: 2rem;
-
-  /* align-items: center;
-    justify-content: center; */
 }
 
 @media screen and (max-width: 768px) {
   html {
     font-size: 87.5%;
   }
-
-  /* .wrapper {
-     grid-template-columns: 1fr;
-  } */
 }
 
 /* ------------------------------ HEADER BELOW ------------------------------ */
@@ -222,11 +214,6 @@ header {
   margin-left: 8px;
 }
 
-/* button:disabled {
-  background-color: var(--gray-700);
-  color: var(--gray-200);
-} */
-
 /* ------------------------------ ERROR MSG BELOW ------------------------------ */
 
 .error_msg {
@@ -342,10 +329,6 @@ header {
   align-items: center;
 }
 
-.task div i {
-  font-size: 24px;
-}
-
 .task div p {
   margin: 0 16px;
   color: var(--gray-100);
@@ -372,6 +355,7 @@ header {
 /* ------------------------------ TODO TASK BELOW ------------------------------ */
 
 .todo .check_btn {
+  font-size: 20px;
   color: var(--gray-200);
 }
 
@@ -381,17 +365,46 @@ header {
 
 /* ------------------------------ DONE TASK BELOW ------------------------------ */
 
+.done .check_btn {
+  font-size: 20px;
+  color: var(--green-500);
+}
+
 .done div .risked {
   text-decoration: line-through;
   color: var(--gray-200);
 }
 
-.done .check_btn {
+.done .check_btn:hover {
+  color: var(--yellow-500);
+}
+
+/* ------------------------------ DELETE TASK CONFIRMATION/CANCEL BTNS BELOW ------------------------------ */
+
+.deleteConfirmation_btn,
+.deleteCancel_btn {
+  font-size: 16px;
+  color: var(--gray-200);
+}
+
+.deleteConfirmation_btn {
+  margin-right: 0.75rem;
+}
+
+.deleteConfirmation_btn {
   color: var(--green-500);
 }
 
-.done .check_btn:hover {
-  color: var(--yellow-500);
+.deleteConfirmation_btn:hover {
+  color: var(--green-550);
+}
+
+.deleteCancel_btn {
+  color: var(--red--500);
+}
+
+.deleteCancel_btn:hover {
+  color: var(--red--550);
 }
 
 /* ------------------------------ HIDDEN BELOW ------------------------------ */
