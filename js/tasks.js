@@ -103,7 +103,24 @@ function createNewTaskEl(taskName, taskId) {
   deleteIcon.classList.add("ph-duotone");
   deleteIcon.classList.add("ph-trash");
   deleteIcon.classList.add("delete_btn");
-  deleteIcon.addEventListener("click", deleteTask);
+  deleteIcon.addEventListener("click", toggleDeleteConfirmation);
+
+  // // delete confirmation icons
+  // // // confirm
+  let deleteConfirmationIcon = document.createElement("i");
+  deleteConfirmationIcon.classList.add("ph-bold");
+  deleteConfirmationIcon.classList.add("ph-check");
+  deleteConfirmationIcon.classList.add("deleteConfirmation_btn");
+  deleteConfirmationIcon.classList.add("hidden");
+  deleteConfirmationIcon.addEventListener("click", confirmDeleteTask);
+
+  // // // cancel
+  let deleteCancelIcon = document.createElement("i");
+  deleteCancelIcon.classList.add("ph-bold");
+  deleteCancelIcon.classList.add("ph-x");
+  deleteCancelIcon.classList.add("deleteCancel_btn");
+  deleteCancelIcon.classList.add("hidden");
+  deleteCancelIcon.addEventListener("click", toggleDeleteConfirmation);
 
   // update icon
   let updateIcon = document.createElement("i");
@@ -113,9 +130,10 @@ function createNewTaskEl(taskName, taskId) {
   updateIcon.addEventListener("click", updateTask);
 
   // div to wrapper delete icon & update icon
-
   let wrapperIcons = document.createElement("div");
   wrapperIcons.appendChild(deleteIcon);
+  wrapperIcons.appendChild(deleteConfirmationIcon);
+  wrapperIcons.appendChild(deleteCancelIcon);
   wrapperIcons.appendChild(updateIcon);
 
   leftContent.appendChild(todoIcon);
@@ -124,7 +142,6 @@ function createNewTaskEl(taskName, taskId) {
 
   task.appendChild(leftContent);
   task.appendChild(wrapperIcons);
-  // task.appendChild(deleteIcon);
 
   return task;
 }
@@ -135,7 +152,7 @@ function addTask(event) {
 
   let newTaskName;
 
-  if (addTaskInput.value == "") {
+  if (!addTaskInput.value) {
     errorMsgContent.classList.remove("hidden");
     inputTurnRed.classList.add("error");
     return;
@@ -164,7 +181,7 @@ function addTask(event) {
   addTaskInput.value = "";
 }
 
-// complete and incomplete task (toggle)
+// complete and incomplete task
 function toggleTaskCompletion(event, isDone) {
   const icon = event.target;
   const task = icon.parentNode.parentNode;
@@ -211,13 +228,19 @@ function toggleTaskCompletion(event, isDone) {
   }
 }
 
-// delete task
-function deleteTask(event) {
-  // delete confirmation
-  const deleteConfirmation = confirm("Realmente deseja excluir essa tarefa?");
-  if (!deleteConfirmation) return;
+// toggle delete confirmation (change the icons)
+function toggleDeleteConfirmation(event) {
+  const icons = event.target.parentNode;
 
-  // delete Action
+  icons.querySelector(".deleteConfirmation_btn").classList.toggle("hidden");
+  icons.querySelector(".deleteCancel_btn").classList.toggle("hidden");
+
+  icons.querySelector(".delete_btn").classList.toggle("hidden");
+  icons.querySelector(".update_btn").classList.toggle("hidden");
+}
+
+// confirm delete task
+function confirmDeleteTask(event) {
   const taskToDeleteId = event.target.parentNode.parentNode.id;
   const taskToDelete = document.getElementById(taskToDeleteId);
 
