@@ -103,12 +103,10 @@ header {
 /* ------------------------------ UPDATE TASK INPUT BELOW ------------------------------ */
 
 .updateTaskInput {
-  font-size: 0.875rem;
+  font-size: 1rem;
 
-  max-width: 43.75rem;
-  width: 99%;
   height: 1rem;
-  margin-left: 8px;
+  margin-left: 0.5rem;
 
   border: 1px solid transparent;
   background-color: var(--gray-700);
@@ -132,7 +130,7 @@ header {
   height: 3.375rem;
 
   background-color: var(--gray-400);
-  color: var(--gray-200);
+  color: var(--gray-100);
   border: 1px solid transparent;
 }
 
@@ -277,8 +275,8 @@ header {
 }
 
 .task div p {
-  font-size: 0.875rem;
-  margin: 0 1rem;
+  font-size: 1rem;
+  margin: 0 0.5rem;
   color: var(--gray-100);
 }
 

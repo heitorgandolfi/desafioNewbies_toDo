@@ -5,14 +5,14 @@ function uid() {
 let taskData = [];
 
 // temp
-const updateTaskInputWrapper = document.createElement("form");
-const updateTaskInput = document.createElement("input");
-updateTaskInput.setAttribute("type", "text");
-updateTaskInput.classList.add("updateTaskInput");
-updateTaskInput.classList.add("hidden");
+// const updateTaskInputWrapper = document.createElement("form");
+// const updateTaskInput = document.createElement("input");
+// updateTaskInput.setAttribute("type", "text");
+// updateTaskInput.classList.add("updateTaskInput");
+// updateTaskInput.classList.add("hidden");
 
-updateTaskInputWrapper.appendChild(updateTaskInput);
-updateTaskInputWrapper.addEventListener("submit", updateTaskBtn);
+// updateTaskInputWrapper.appendChild(updateTaskInput);
+// updateTaskInputWrapper.addEventListener("submit", updateTaskBtn);
 // temp
 
 // main elements
@@ -132,8 +132,19 @@ function createNewTaskEl(taskName, taskId) {
   updateIcon.classList.add("update_btn");
   updateIcon.addEventListener("click", updateTask);
 
+  // update task input and form
+  let updateTaskInputWrapper = document.createElement("form");
+  let updateTaskInput = document.createElement("input");
+  updateTaskInput.setAttribute("type", "text");
+  updateTaskInput.classList.add("updateTaskInput");
+  updateTaskInput.classList.add("hidden");
+
+  updateTaskInputWrapper.appendChild(updateTaskInput);
+  updateTaskInputWrapper.addEventListener("submit", updateTaskBtn);
+
   // div to wrapper delete icon & update icon
-  let wrapperIcons = document.createElement("div");
+  let wrapperIcons = document.createElement("form");
+  wrapperIcons.classList.add("wrapperIcons");
   wrapperIcons.appendChild(deleteIcon);
   wrapperIcons.appendChild(deleteConfirmationIcon);
   wrapperIcons.appendChild(deleteCancelIcon);
@@ -265,34 +276,42 @@ function confirmDeleteTask(event) {
 // update task
 let globalupdateTaskGetElement;
 function updateTask(event) {
-  const taskDescription =
-    event.target.parentNode.parentNode.querySelector(".taskDescription");
+  const taskElement = event.target.closest(".task");
+  const updateTaskInputWrapper = taskElement.querySelector(".updateTaskInput");
 
-  const icons = event.target.parentNode.parentNode;
+  const taskDescription = taskElement.querySelector(".taskDescription");
+
+  const icons = taskElement.querySelector(".wrapperIcons");
 
   icons.querySelector(".update_btn").classList.toggle("cancelUpdate");
   icons.querySelector(".delete_btn").classList.toggle("hidden");
 
-  updateTaskInput.classList.toggle("hidden");
+  updateTaskInputWrapper.classList.toggle("hidden");
   taskDescription.classList.toggle("hidden");
 
-  const updateTaskGetId = event.target.parentNode.parentNode.id;
+  const updateTaskGetId = taskElement.id;
   const updateTaskGetElement = taskData.find(
     (task) => task.id === updateTaskGetId
   );
 
   globalupdateTaskGetElement = updateTaskGetElement;
-  updateTaskInput.focus();
+
+  updateTaskInputWrapper.value = globalupdateTaskGetElement.name;
+
+  updateTaskInputWrapper.focus();
 }
 
 // updateTasl success button
 function updateTaskBtn(event) {
   event.preventDefault();
 
-  if (!updateTaskInput.value) {
-    updateTaskInput.placeholder = "Campo obrigatório";
+  const taskElement = event.target.closest(".task");
+  const updateTaskInputWrapper = taskElement.querySelector(".updateTaskInput");
+
+  if (!updateTaskInputWrapper.value) {
+    updateTaskInputWrapper.placeholder = "Campo obrigatório";
   } else {
-    globalupdateTaskGetElement.name = updateTaskInput.value;
+    globalupdateTaskGetElement.name = updateTaskInputWrapper.value;
 
     setLocalStorage(taskData);
     location.reload();
