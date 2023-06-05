@@ -19,11 +19,14 @@
 
   --blue-500: #4e6ede;
   --blue-600: #3352c2;
+
   --green-500: #26c277;
   --green-550: #23a868;
   --green-600: #093d24;
+
   --yellow-500: #ffd231;
   --yellow-600: #644f04;
+
   --red--500: #de4e4e;
   --red--550: #b33838;
   --red--700: #550f0f;
@@ -97,87 +100,31 @@ header {
   padding: calc(6.75rem - 2rem) 0;
 }
 
-/* ------------------------------ MODAL INPUT BELOW ------------------------------ */
+/* ------------------------------ UPDATE TASK INPUT BELOW ------------------------------ */
 
-.update_task_modal {
-  position: fixed;
-  z-index: 3;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.updateTaskInput {
+  font-size: 0.875rem;
 
-  max-width: 420px;
-  width: 95%;
-  height: 200px;
+  max-width: 43.75rem;
+  width: 99%;
+  height: 1rem;
+  margin-left: 8px;
 
-  padding: 32px;
-  border-radius: 8px;
-  background-color: var(--gray-500);
-}
-
-.update_task_modal input {
-  width: 95%;
-  margin-bottom: 12px;
-
-  background-color: var(--gray-400);
-  color: var(--gray-200);
   border: 1px solid transparent;
-}
-
-.update_task_modal input:hover {
-  border: 1px solid var(--blue-500);
-}
-
-.update_task_modal div {
-  text-align: center;
-}
-
-/* ------------------------------ MODAL BUTTONS BELOW ------------------------------ */
-
-.update_task_modal_okBtn,
-.update_task_modal_cancelBtn {
+  background-color: var(--gray-700);
   color: var(--gray-100);
-  border: 1px solid transparent;
 }
 
-.update_task_modal_okBtn {
-  background-color: var(--green-500);
-}
-
-.update_task_modal_okBtn:hover {
-  background-color: var(--green-550);
-}
-
-.update_task_modal_cancelBtn {
-  background-color: var(--red--500);
-}
-
-.update_task_modal_cancelBtn:hover {
-  background-color: var(--red--550);
-}
-
-/* ------------------------------ MODAL ERROR MSG BELOW ------------------------------ */
-
-.modal_error_msg {
-  padding: 4px;
-}
-
-.modal_error_msg p {
-  text-align: start;
-  font-size: 12px;
-  margin-bottom: 8px;
-  color: var(--red--500);
-}
-
-.error input {
-  border: 1px solid var(--red--500);
+.updateTaskInput:hover,
+.updateTaskInput:focus {
+  border: 1px solid var(--yellow-500);
 }
 
 /* ------------------------------ FORM BELOW ------------------------------ */
 
 .new_task_form {
   display: flex;
-  gap: 16px;
+  gap: 1rem;
 }
 
 .new_task_form input {
@@ -210,8 +157,8 @@ header {
 }
 
 .new_task_form button i {
-  font-size: 22px;
-  margin-left: 8px;
+  font-size: 1.375rem;
+  margin-left: 0.5rem;
 }
 
 /* ------------------------------ ERROR MSG BELOW ------------------------------ */
@@ -222,7 +169,7 @@ header {
 
 .error_msg p {
   color: var(--red--500);
-  font-size: 12px;
+  font-size: 0.75rem;
 }
 
 .error input {
@@ -234,7 +181,7 @@ header {
 .tasks_counter {
   max-width: 46rem;
   padding: 1.25rem;
-  margin: 48px auto;
+  margin: 3rem auto;
 
   border-top: 3px solid var(--gray-400);
   border-bottom: 3px solid var(--gray-400);
@@ -249,14 +196,14 @@ header {
 }
 
 .tasks_counter span {
-  padding: 4px 12px;
+  padding: 0.25rem 0.75rem;
   border-radius: 999px;
 }
 
 .count {
   font-size: 0.75rem;
   font-weight: bold;
-  margin-left: 8px;
+  margin-left: 0.5rem;
 }
 
 /* ------------------------------ TASKS COUNTER COLORS BELOW ------------------------------ */
@@ -292,7 +239,7 @@ header {
 }
 
 .empty_tasks img {
-  margin-right: 32px;
+  margin-right: 2rem;
 }
 
 .empty_tasks div p:first-child {
@@ -316,7 +263,7 @@ header {
   justify-content: space-between;
 
   background-color: var(--gray-350);
-  padding: 24px;
+  padding: 1.5rem;
   border-radius: 8px;
 }
 
@@ -330,13 +277,14 @@ header {
 }
 
 .task div p {
-  margin: 0 16px;
+  font-size: 0.875rem;
+  margin: 0 1rem;
   color: var(--gray-100);
 }
 
 .delete_btn,
 .update_btn {
-  font-size: 20px;
+  font-size: 1.25rem;
   color: var(--gray-200);
 }
 
@@ -352,10 +300,19 @@ header {
   color: var(--blue-500);
 }
 
+.cancelUpdate {
+  color: var(--red--500);
+
+  &:hover {
+    color: var(--red--500);
+    opacity: 0.9;
+  }
+}
+
 /* ------------------------------ TODO TASK BELOW ------------------------------ */
 
 .todo .check_btn {
-  font-size: 20px;
+  font-size: 1.25rem;
   color: var(--gray-200);
 }
 
@@ -366,7 +323,7 @@ header {
 /* ------------------------------ DONE TASK BELOW ------------------------------ */
 
 .done .check_btn {
-  font-size: 20px;
+  font-size: 1.25rem;
   color: var(--green-500);
 }
 
@@ -383,7 +340,7 @@ header {
 
 .deleteConfirmation_btn,
 .deleteCancel_btn {
-  font-size: 16px;
+  font-size: 1rem;
   color: var(--gray-200);
 }
 

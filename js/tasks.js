@@ -4,14 +4,16 @@ function uid() {
 
 let taskData = [];
 
-// modal elements
-const updateTaskModal = document.querySelector(".update_task_modal");
-const inputNewText = document.querySelector(".inputNewText");
-const modalErrorMsgContent = document.querySelector(".modal_error_msg");
-const modalBackGround = document.querySelector("#background_update_task_modal");
+// temp
+const updateTaskInputWrapper = document.createElement("form");
+const updateTaskInput = document.createElement("input");
+updateTaskInput.setAttribute("type", "text");
+updateTaskInput.classList.add("updateTaskInput");
+updateTaskInput.classList.add("hidden");
 
-const insertBtn = document.querySelector(".update_task_modal_okBtn");
-const cancelBtn = document.querySelector(".update_task_modal_cancelBtn");
+updateTaskInputWrapper.appendChild(updateTaskInput);
+updateTaskInputWrapper.addEventListener("submit", updateTaskBtn);
+// temp
 
 // main elements
 const addTaskInput = document.querySelector("#task_input");
@@ -96,6 +98,7 @@ function createNewTaskEl(taskName, taskId) {
 
   // task name / p
   let name = document.createElement("p");
+  name.classList.add("taskDescription");
   name.innerHTML = taskName;
 
   // delete icon
@@ -138,6 +141,7 @@ function createNewTaskEl(taskName, taskId) {
 
   leftContent.appendChild(todoIcon);
   leftContent.appendChild(doneIcon);
+  leftContent.appendChild(updateTaskInputWrapper);
   leftContent.appendChild(name);
 
   task.appendChild(leftContent);
@@ -261,8 +265,16 @@ function confirmDeleteTask(event) {
 // update task
 let globalupdateTaskGetElement;
 function updateTask(event) {
-  updateTaskModal.classList.remove("hidden");
-  modalBackGround.classList.remove("hidden");
+  const taskDescription =
+    event.target.parentNode.parentNode.querySelector(".taskDescription");
+
+  const icons = event.target.parentNode.parentNode;
+
+  icons.querySelector(".update_btn").classList.toggle("cancelUpdate");
+  icons.querySelector(".delete_btn").classList.toggle("hidden");
+
+  updateTaskInput.classList.toggle("hidden");
+  taskDescription.classList.toggle("hidden");
 
   const updateTaskGetId = event.target.parentNode.parentNode.id;
   const updateTaskGetElement = taskData.find(
@@ -270,36 +282,21 @@ function updateTask(event) {
   );
 
   globalupdateTaskGetElement = updateTaskGetElement;
+  updateTaskInput.focus();
 }
 
-// modal success button - onClick on html
-function updateTaskBtn() {
-  if (!inputNewText.value) {
-    modalErrorMsgContent.classList.remove("hidden");
-    updateTaskModal.classList.add("error");
+// updateTasl success button
+function updateTaskBtn(event) {
+  event.preventDefault();
+
+  if (!updateTaskInput.value) {
+    updateTaskInput.placeholder = "Campo obrigatório";
   } else {
-    globalupdateTaskGetElement.name = inputNewText.value;
-
-    modalErrorMsgContent.classList.add("hidden");
-    updateTaskModal.classList.remove("error");
-
-    updateTaskModal.classList.add("hidden");
-
-    modalBackGround.classList.add("hidden");
+    globalupdateTaskGetElement.name = updateTaskInput.value;
 
     setLocalStorage(taskData);
-
     location.reload();
   }
-}
-// modal cancel button - onClick on html
-function cancelUpdateTaskBtn() {
-  updateTaskModal.classList.add("hidden");
-
-  modalErrorMsgContent.classList.add("hidden");
-  updateTaskModal.classList.remove("error");
-
-  modalBackGround.classList.add("hidden");
 }
 
 // render task list to status recovery of tasks
@@ -321,9 +318,3 @@ function renderTaskList() {
 window.addEventListener("load", () => {
   renderTaskList();
 });
-
-// async HTML with taskData list
-// for (const task of taskData) {
-//   const taskItem = createNewTaskEl(task.name, task.id);
-//   taskList.appendChild(taskItem);
-// }
