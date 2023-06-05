@@ -4,17 +4,6 @@ function uid() {
 
 let taskData = [];
 
-// temp
-// const updateTaskInputWrapper = document.createElement("form");
-// const updateTaskInput = document.createElement("input");
-// updateTaskInput.setAttribute("type", "text");
-// updateTaskInput.classList.add("updateTaskInput");
-// updateTaskInput.classList.add("hidden");
-
-// updateTaskInputWrapper.appendChild(updateTaskInput);
-// updateTaskInputWrapper.addEventListener("submit", updateTaskBtn);
-// temp
-
 // main elements
 const addTaskInput = document.querySelector("#task_input");
 const addTaskButton = document.getElementsByTagName("button")[0];
