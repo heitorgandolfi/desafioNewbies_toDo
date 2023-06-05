@@ -303,7 +303,7 @@ header {
 
   &:hover {
     color: var(--red--500);
-    opacity: 0.9;
+    opacity: 0.8;
   }
 }
 
